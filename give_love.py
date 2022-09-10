@@ -24,17 +24,20 @@ def clear_screen() -> None:
 def main() -> None:
     clear_screen()  # clean screen for aesthetic output
 
+    love_string = f"|                      @{USER1} очень любит тебя, @{USER2}!                      |"
+    wrapper = "=" * len(love_string)
+
     text: list = [
-        "============================================================================",
-        f"|                  @{USER1} очень любит тебя, @{USER2}!                  |",
-        "============================================================================"
+        wrapper,
+        love_string,
+        wrapper,
     ]
 
     for text_line in text:
         print("\n")
         for char in text_line:
             print(COLOR + STYLE + char, flush=True, end="")
-            sleep(.1)
+            sleep(.03)
 
 
 if __name__ == "__main__":
