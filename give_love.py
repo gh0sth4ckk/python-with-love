@@ -15,7 +15,10 @@ init(autoreset=True)  # init colorama
 
 def clear_screen() -> None:
     """Clear screen based on user system."""
-    return
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 def main() -> None:
