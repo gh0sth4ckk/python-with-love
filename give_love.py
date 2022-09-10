@@ -1,16 +1,23 @@
 import os
+import sys
 
 from time import sleep
-from colorama import init, Fore, Style
 
-COLOR = Fore.MAGENTA  # text color in terminal
+from colorama import init, Fore, Style
+from emoji import emojize
+
+
+COLORS: list = ["r", "g", "b", "p", "y", "w", "bl"]  # Text colors in terminal.
+COLOR = Fore.WHITE  # Color by default
+HEART = ":white_heart:"  # Heart by default
 STYLE = Style.BRIGHT
 
-# users
+
+# Usernames
 USER1 = "u1"
 USER2 = "u2"
 
-init(autoreset=True)  # init colorama
+init(autoreset=True)  # Init colorama.
 
 
 def clear_screen() -> None:
@@ -21,11 +28,48 @@ def clear_screen() -> None:
         os.system("clear")
 
 
-def main() -> None:
-    clear_screen()  # clean screen for aesthetic output
+def color_settings() -> None:
+    """Setting all colors in app."""
+    global COLOR, HEART
 
-    love_string = f"|                      @{USER1} очень любит тебя, @{USER2}!                      |"
-    wrapper = "=" * len(love_string)
+    if "-c" or "--color" in sys.argv:
+        color_index: int = sys.argv.index("-c")+1
+        color_type: str = sys.argv[color_index]
+        if color_type in COLORS:
+            match color_type:
+                case "r":
+                    COLOR = Fore.RED
+                    HEART = ":red_heart:"
+                case "g":
+                    COLOR = Fore.GREEN
+                    HEART = ":green_heart:"
+                case "b":
+                    COLOR = Fore.BLUE
+                    HEART = ":blue_heart:"
+                case "p":
+                    COLOR = Fore.MAGENTA
+                    HEART = ":purple_heart:"
+                case "w":
+                    COLOR = Fore.WHITE
+                    HEART = ":white_heart:"
+                case "y":
+                    COLOR = Fore.YELLOW
+                    HEART = ":yellow_heart:"
+                case "bl":
+                    COLOR = Fore.BLACK
+                    HEART = ":black_heart:"
+        else:
+            print(Fore.RED + "[!] You enter incorrect color type")
+
+
+def main() -> None:
+    clear_screen()  # Clean screen for aesthetic output.
+    color_settings()  # Settings all colors before start.
+
+    love_string = emojize(
+        f"|                     {HEART} @{USER1} очень любит тебя, @{USER2}! {HEART}                     |"
+    )
+    wrapper = "=" * (len(love_string) + 2)
 
     text: list = [
         wrapper,
@@ -39,6 +83,13 @@ def main() -> None:
             print(COLOR + STYLE + char, flush=True, end="")
             sleep(.03)
 
+    input(COLOR + "\nEnter any key to exit...")
+    clear_screen()
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        clear_screen()
+        print(emojize(Fore.RED + "You kill love :broken_heart:"))
