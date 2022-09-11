@@ -5,7 +5,7 @@
 Give love with python! You can wish love to your girl, parents or your best friend. This short script can surprise 
 your loved ones (especially if they not know what this).
 
-<img alt="image not loading" src="src/img.png" width="1200" height="615">
+<img alt="image not loading" src="src/img.png" width="950" height="515">
 
 # Installation
 Requires Python 3.10+ and terminal, which have support unicode chars (ex. Windows terminal)
