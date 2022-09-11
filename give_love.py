@@ -6,6 +6,7 @@ from time import sleep
 from colorama import init, Fore, Style
 from emoji import emojize
 
+from arguments import get_username
 
 COLORS: list = ["r", "g", "b", "p", "y", "w", "bl"]  # Text colors in terminal.
 COLOR = Fore.WHITE  # Color by default
@@ -14,8 +15,8 @@ STYLE = Style.BRIGHT
 
 
 # Usernames
-USER1 = "u1"
-USER2 = "u2"
+user1 = "user1"
+user2 = "user2"
 
 init(autoreset=True)  # Init colorama.
 
@@ -32,8 +33,8 @@ def color_settings() -> None:
     """Setting all colors in app."""
     global COLOR, HEART
 
-    if "-c" or "--color" in sys.argv:
-        color_index: int = sys.argv.index("-c")+1
+    if "-c" in sys.argv or "--color" in sys.argv:
+        color_index: int = sys.argv.index("-c")+1 if "-c" in sys.argv else sys.argv.index("--color")+1
         color_type: str = sys.argv[color_index]
         if color_type in COLORS:
             match color_type:
@@ -63,11 +64,16 @@ def color_settings() -> None:
 
 
 def main() -> None:
+    global user1, user2
+
     clear_screen()  # Clean screen for aesthetic output.
     color_settings()  # Settings all colors before start.
 
+    if get_username():
+        user1, user2 = get_username()
+
     love_string = emojize(
-        f"|                     {HEART} @{USER1} очень любит тебя, @{USER2}! {HEART}                     |"
+        f"|                     {HEART} {user1} очень любит тебя, {user2}! {HEART}                     |"
     )
     wrapper = "=" * (len(love_string) + 2)
 
