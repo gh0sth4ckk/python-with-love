@@ -9,8 +9,8 @@ from emoji import emojize
 from arguments import get_username, get_text, get_support
 
 COLORS: list = ["r", "g", "b", "p", "y", "w", "bl"]  # Text colors in terminal.
-COLOR = Fore.WHITE  # Color by default
-HEART = ":white_heart:"  # Heart by default
+COLOR = Fore.WHITE  # Color by default.
+HEART = ":white_heart:"  # Heart by default.
 STYLE = Style.BRIGHT
 
 user1 = "user1"
